@@ -1,8 +1,8 @@
 bl_info = {
-    "name": "Selected Wireframe",
-    "description": "A tool to display wireframes on the selected meshes.",
-    "author": "David Bates",
-    "blender": (2, 7, 3),
+    "name": "Transparent-Tool-Blender",
+    "description": "A tool",
+    "author": "Jozef,
+    "blender": (2, 7, 8),
     "location": "View 3D > Tool Shelf",
     "category": "3D View",
 }
