@@ -1,7 +1,7 @@
 bl_info = {
     "name": "Transparent-Tool-Blender",
     "description": "A tool",
-    "author": "Jozef,
+    "author": "Jozef,"
     "blender": (2, 7, 8),
     "location": "View 3D > Tool Shelf",
     "category": "3D View",
