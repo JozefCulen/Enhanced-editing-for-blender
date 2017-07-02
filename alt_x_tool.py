@@ -1,7 +1,7 @@
 bl_info = {
     "name": "Transparent-Tool-Blender",
     "description": "A tool",
-    "author": "Jozef,"
+    "author": "Jozef",
     "blender": (2, 7, 8),
     "location": "View 3D > Tool Shelf",
     "category": "3D View",
@@ -17,8 +17,25 @@ class Opacity(bpy.types.Operator):
     bl_label = "Make Transparent"
     bl_options = {'REGISTER', 'UNDO'}
     
+    
+    
+    def addToSelected(self):
+        sel = []
+        scene = bpy.context.scene
+        for obj in scene.objects:
+            if obj.select:
+                sel.append(obj)
+        return sel
+    
     def execute(self, context):
-
+        selected  = self.addToSelected();
+        
+        for object in selected:
+            object.show_transparent = True;
+            slot = object.material_slots[object.active_material_index]
+            mat = slot.material
+            mat.alpha = 0.8
+            mat.use_transparency = True
         #Set property transparent on Object bpy.data.Objects['id'].show_transparent = true
         # set value of material : bpy.data.materials['material index'].alpha
         return {'FINISHED'}
