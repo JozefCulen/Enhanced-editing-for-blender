@@ -17,9 +17,7 @@ class Opacity(bpy.types.Operator):
     bl_label = "Make Transparent"
     bl_options = {'REGISTER', 'UNDO'}
     
-    
-    
-    def addToSelected(self):
+    def selected(self):
         sel = []
         scene = bpy.context.scene
         for obj in scene.objects:
@@ -27,17 +25,32 @@ class Opacity(bpy.types.Operator):
                 sel.append(obj)
         return sel
     
+    def assignMaterial(self, obj):
+        print("we need to assign material")
+        
+    def setTransparency(self, obj):
+        if(len(obj.material_slots) == 0):
+            self.assignMaterial(obj)
+        else:
+            mat = obj.material_slots[obj.active_material_index].material
+            
+            if mat.alpha == 1.0:
+                print("making transparent")
+                obj.show_transparent = True
+                mat.alpha = 0.8
+                mat.use_transparency = True
+            else:
+                print("unmaking transparent")
+                obj.show_transparent = False
+                mat.alpha = 1.0
+                mat.use_transparency = False
+            
+        
     def execute(self, context):
-        selected  = self.addToSelected();
+        selected  = self.selected();
         
         for object in selected:
-            object.show_transparent = True;
-            slot = object.material_slots[object.active_material_index]
-            mat = slot.material
-            mat.alpha = 0.8
-            mat.use_transparency = True
-        #Set property transparent on Object bpy.data.Objects['id'].show_transparent = true
-        # set value of material : bpy.data.materials['material index'].alpha
+            self.setTransparency(object)
         return {'FINISHED'}
 
 
